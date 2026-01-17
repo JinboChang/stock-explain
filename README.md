@@ -22,7 +22,10 @@ Data Engineering
 - Daily ingestion with watermark + safety lag
 - Bronze/Silver/Gold lakehouse design
 - Normalization, dedup, and entity linking (ticker mapping)
+- Session-aware time normalization (UTC/ET, PRE/REG/POST buckets)
+- Daily context features + candidate builder (D-1 to D+1 window)
 - Backfills and idempotent reprocessing
+- Partitioning, schema versioning, and late-arrival reprocessing policy
 - Data quality checks and observability
 
 Machine Learning Engineering
@@ -93,6 +96,11 @@ Architecture (end-to-end)
     | - Candlestick chart               |
     | - Hover -> evidence card          |
     +-----------------------------------+
+
+Feature and candidate builder (offline)
+- Build gold_daily_context per (ticker, session_date)
+- Generate doc candidates from linked news and SEC in D-1 to D+1 (ET)
+- Outputs: gold_daily_context, gold_doc_candidates
 
 Data model (Gold)
 - gold_daily_context
